@@ -84,10 +84,18 @@ GisunOS is pre-configured for **Vercel** out of the box:
 
 ## 📸 Screenshots
 
-*loading....*
-- **Desktop View**: Highlighting the Dock and Menu Bar.
-- **Mobile Mode**: Showing the Compact UI and Orientation Guardian.
-- **GisunTube**: Demonstrating ad-free video playback through the proxy.
+<p align="center">
+  <img src="Screenshots/1.jpeg" width="48%" alt="GisunOS Desktop Shell" />
+  <img src="Screenshots/2.jpeg" width="48%" alt="GisunOS App Launcher and Desktop" />
+</p>
+<p align="center">
+  <img src="Screenshots/3.jpeg" width="48%" alt="Local PC File Sync in Finder" />
+  <img src="Screenshots/4.jpeg" width="48%" alt="macOS Style Auto-Hiding Controls" />
+</p>
+<p align="center">
+  <img src="Screenshots/5.jpeg" width="48%" alt="System Activity Monitor" />
+  <img src="Screenshots/6.jpeg" width="48%" alt="Mobile Landscape Guardian" />
+</p>
 
 ---
 
