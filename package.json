@@ -2,10 +2,12 @@
   "name": "gisun-os-scripts",
   "version": "1.0.0",
   "description": "Utility scripts for GisunOS",
-  "main": "scripts/upload_to_supabase.js",
+  "main": "main.js",
   "scripts": {
     "build": "cd client && npm install && npm run build",
-    "vercel-build": "npm run build"
+    "vercel-build": "npm run build",
+    "start": "electron .",
+    "package": "npm run build && electron-builder --win"
   },
   "engines": {
     "node": "20.x"
@@ -15,6 +17,31 @@
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
-    "systeminformation": "^5.31.5"
+    "systeminformation": "^5.31.7"
+  },
+  "devDependencies": {
+    "electron": "^41.7.1",
+    "electron-builder": "^26.8.1",
+    "pkg": "^5.8.1"
+  },
+  "pkg": {
+    "assets": "client/dist/**"
+  },
+  "build": {
+    "appId": "com.gisunos.desktop",
+    "productName": "GisunOS",
+    "directories": {
+      "output": "dist-desktop"
+    },
+    "files": [
+      "main.js",
+      "packaged-server.js",
+      "client/dist/**/*",
+      "node_modules/**/*"
+    ],
+    "win": {
+      "target": "portable",
+      "icon": "client/dist/logo.png"
+    }
   }
 }
