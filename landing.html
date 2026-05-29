@@ -7,24 +7,30 @@
   <!-- Google Fonts Outfit & Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   
   <style>
     :root {
-      --bg: #0b0f19;
-      --card-bg: rgba(255, 255, 255, 0.03);
-      --card-border: rgba(255, 255, 255, 0.08);
+      --bg: #000000;
+      --card-bg: rgba(255, 255, 255, 0.02);
+      --card-border: rgba(255, 255, 255, 0.05);
       --primary: #00f2fe;
       --secondary: #4facfe;
-      --accent: #a18cd1;
+      --accent: #d4fc79;
       --text: #f8fafc;
-      --text-muted: #94a3b8;
+      --text-muted: #64748b;
+      --glow-cyan: rgba(0, 242, 254, 0.15);
+      --glow-purple: rgba(161, 140, 209, 0.12);
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
@@ -36,27 +42,53 @@
       position: relative;
     }
 
-    /* Ambient background glows */
+    /* Ambient background glows (Animated) */
     .glow-1 {
       position: absolute;
-      top: -10%;
+      top: -5%;
       left: -10%;
-      width: 50vw;
-      height: 50vw;
-      background: radial-gradient(circle, rgba(79, 172, 254, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+      width: 60vw;
+      height: 60vw;
+      background: radial-gradient(circle, var(--glow-cyan) 0%, rgba(0, 0, 0, 0) 70%);
       pointer-events: none;
       z-index: 0;
+      animation: floatGlow 12s ease-in-out infinite alternate;
     }
 
     .glow-2 {
       position: absolute;
-      bottom: -10%;
+      bottom: 20%;
       right: -10%;
-      width: 60vw;
-      height: 60vw;
-      background: radial-gradient(circle, rgba(161, 140, 209, 0.12) 0%, rgba(0, 0, 0, 0) 70%);
+      width: 70vw;
+      height: 70vw;
+      background: radial-gradient(circle, var(--glow-purple) 0%, rgba(0, 0, 0, 0) 70%);
       pointer-events: none;
       z-index: 0;
+      animation: floatGlow 15s ease-in-out infinite alternate-reverse;
+    }
+
+    @keyframes floatGlow {
+      0% {
+        transform: translate(0, 0) scale(1);
+      }
+      100% {
+        transform: translate(8%, 5%) scale(1.1);
+      }
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #000;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #222;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #333;
     }
 
     .container {
@@ -67,11 +99,44 @@
       z-index: 10;
     }
 
+    /* Entrance Animations */
+    .animate-fade-in {
+      animation: fadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      opacity: 0;
+    }
+
+    .animate-slide-up {
+      animation: slideUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      opacity: 0;
+    }
+
+    .animate-slide-up-delayed {
+      animation: slideUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: 0.2s;
+      opacity: 0;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 4rem;
+      margin-bottom: 5rem;
     }
 
     .brand {
@@ -79,96 +144,151 @@
       align-items: center;
       gap: 0.75rem;
       font-family: 'Outfit', sans-serif;
-      font-size: 1.5rem;
-      font-weight: 700;
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
       background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      transition: transform 0.3s ease;
+    }
+
+    .brand:hover {
+      transform: scale(1.02);
     }
 
     .brand img {
-      width: 36px;
-      height: 36px;
+      width: 40px;
+      height: 40px;
     }
 
     /* Hero section */
     .hero {
       text-align: center;
-      max-width: 800px;
+      max-width: 850px;
       margin: 0 auto 5rem auto;
     }
 
     .badge {
       display: inline-flex;
       align-items: center;
-      padding: 0.5rem 1rem;
-      background: rgba(0, 242, 254, 0.08);
-      border: 1px solid rgba(0, 242, 254, 0.2);
+      padding: 0.5rem 1.2rem;
+      background: rgba(0, 242, 254, 0.05);
+      border: 1px solid rgba(0, 242, 254, 0.15);
       border-radius: 9999px;
-      font-size: 0.8rem;
-      font-weight: 600;
+      font-size: 0.75rem;
+      font-weight: 700;
       color: var(--primary);
       text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 1.5rem;
-      box-shadow: 0 0 20px rgba(0, 242, 254, 0.1);
+      letter-spacing: 0.15em;
+      margin-bottom: 2rem;
+      box-shadow: 0 0 30px rgba(0, 242, 254, 0.05);
     }
 
     h1 {
       font-family: 'Outfit', sans-serif;
-      font-size: 3.5rem;
-      font-weight: 800;
-      line-height: 1.15;
-      letter-spacing: -0.02em;
+      font-size: 4.2rem;
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.04em;
       margin-bottom: 1.5rem;
-      background: linear-gradient(to right, #ffffff, #cbd5e1);
+      background: linear-gradient(to bottom, #ffffff 60%, #94a3b8 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
     .subtitle {
-      font-size: 1.2rem;
-      color: var(--text-muted);
-      line-height: 1.6;
-      margin-bottom: 2.5rem;
+      font-size: 1.25rem;
+      color: #94a3b8;
+      line-height: 1.65;
+      margin-bottom: 3rem;
+      font-weight: 400;
+    }
+
+    /* Buttons */
+    .btn-group {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .btn {
+      padding: 1.1rem 2.2rem;
+      border-radius: 14px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      color: #000;
+      border: none;
+      box-shadow: 0 8px 30px rgba(0, 242, 254, 0.25);
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 12px 40px rgba(0, 242, 254, 0.45);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.03);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(8px);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: var(--primary);
+      transform: translateY(-2px);
     }
 
     /* Interactive Showcase Slider */
     .showcase {
-      max-width: 900px;
-      margin: 0 auto 6rem auto;
+      max-width: 960px;
+      margin: 0 auto 7rem auto;
       background: var(--card-bg);
       border: 1px solid var(--card-border);
-      border-radius: 24px;
-      padding: 1rem;
-      backdrop-filter: blur(16px);
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      border-radius: 28px;
+      padding: 1.25rem;
+      backdrop-filter: blur(24px);
+      box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.8);
       position: relative;
     }
 
     .window-header {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      padding: 0.5rem 0.75rem 1rem 0.75rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      gap: 0.6rem;
+      padding: 0.4rem 0.6rem 1.2rem 0.6rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
     }
 
     .dot {
-      width: 12px;
-      height: 12px;
+      width: 13px;
+      height: 13px;
       border-radius: 50%;
     }
-    .dot.red { background-color: #ef4444; }
-    .dot.yellow { background-color: #eab308; }
-    .dot.green { background-color: #22c55e; }
+    .dot.red { background-color: #ff5f56; }
+    .dot.yellow { background-color: #ffbd2e; }
+    .dot.green { background-color: #27c93f; }
 
     .window-title {
-      margin-left: 1rem;
-      font-size: 0.75rem;
+      margin-left: 1.2rem;
+      font-size: 0.8rem;
       font-weight: 500;
-      color: var(--text-muted);
-      letter-spacing: 0.05em;
+      color: #475569;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
 
     .carousel-container {
@@ -176,9 +296,10 @@
       width: 100%;
       aspect-ratio: 16 / 9;
       overflow: hidden;
-      border-radius: 12px;
+      border-radius: 16px;
       margin-top: 1rem;
-      background-color: #05070c;
+      background-color: #030303;
+      border: 1px solid rgba(255, 255, 255, 0.02);
     }
 
     .carousel-slide {
@@ -188,8 +309,8 @@
       width: 100%;
       height: 100%;
       opacity: 0;
-      transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-      transform: scale(1.02);
+      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      transform: scale(1.03);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -211,26 +332,26 @@
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      width: 48px;
-      height: 48px;
+      width: 52px;
+      height: 52px;
       border-radius: 50%;
-      background: rgba(15, 23, 42, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(0, 0, 0, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       color: white;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 10;
-      transition: all 0.2s ease;
-      backdrop-filter: blur(8px);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      backdrop-filter: blur(12px);
     }
 
     .carousel-btn:hover {
-      background: rgba(15, 23, 42, 0.9);
+      background: var(--primary);
+      color: #000;
       border-color: var(--primary);
-      color: var(--primary);
-      box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
+      box-shadow: 0 0 25px rgba(0, 242, 254, 0.4);
     }
 
     .carousel-btn.prev { left: 24px; }
@@ -239,43 +360,66 @@
     .carousel-dots {
       display: flex;
       justify-content: center;
-      gap: 0.5rem;
-      margin-top: 1.5rem;
+      gap: 0.6rem;
+      margin-top: 1.75rem;
     }
 
     .dot-indicator {
-      width: 10px;
-      height: 10px;
+      width: 11px;
+      height: 11px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.15);
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .dot-indicator.active {
       background: var(--primary);
-      width: 24px;
+      width: 28px;
       border-radius: 9999px;
-      box-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
+      box-shadow: 0 0 15px rgba(0, 242, 254, 0.4);
+    }
+
+    /* Section Headers */
+    .section-title {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .section-title h2 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.8rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 1rem;
+      background: linear-gradient(to right, #ffffff, #64748b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .section-title p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto;
     }
 
     /* Installation and Download Panel */
     .download-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 2rem;
-      margin-bottom: 6rem;
+      margin-bottom: 7rem;
     }
 
     .card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
-      border-radius: 24px;
-      padding: 2.5rem 2rem;
-      backdrop-filter: blur(16px);
-      transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+      border-radius: 28px;
+      padding: 3rem 2.5rem;
+      backdrop-filter: blur(20px);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       display: flex;
-      flex-col: column;
       flex-direction: column;
       align-items: center;
       text-align: center;
@@ -290,16 +434,16 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(135deg, rgba(0, 242, 254, 0.05) 0%, rgba(161, 140, 209, 0.05) 100%);
+      background: linear-gradient(135deg, rgba(0, 242, 254, 0.03) 0%, rgba(161, 140, 209, 0.03) 100%);
       opacity: 0;
-      transition: opacity 0.3s ease;
+      transition: opacity 0.4s ease;
       pointer-events: none;
     }
 
     .card:hover {
-      transform: translateY(-8px);
-      border-color: rgba(0, 242, 254, 0.3);
-      box-shadow: 0 20px 40px -15px rgba(0, 242, 254, 0.15);
+      transform: translateY(-8px) scale(1.01);
+      border-color: rgba(0, 242, 254, 0.2);
+      box-shadow: 0 30px 60px -20px rgba(0, 242, 254, 0.1);
     }
 
     .card:hover::before {
@@ -307,85 +451,162 @@
     }
 
     .icon-container {
-      width: 80px;
-      height: 80px;
-      border-radius: 20px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      width: 88px;
+      height: 88px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.01);
+      border: 1px solid rgba(255, 255, 255, 0.05);
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
       color: var(--primary);
-      transition: all 0.3s ease;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .card:hover .icon-container {
-      background: rgba(0, 242, 254, 0.1);
-      border-color: rgba(0, 242, 254, 0.3);
+      background: rgba(0, 242, 254, 0.08);
+      border-color: rgba(0, 242, 254, 0.25);
       color: var(--primary);
-      transform: scale(1.05);
-      box-shadow: 0 0 20px rgba(0, 242, 254, 0.2);
+      transform: translateY(-4px) scale(1.05);
+      box-shadow: 0 10px 25px rgba(0, 242, 254, 0.15);
     }
 
     .card-title {
       font-family: 'Outfit', sans-serif;
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       font-weight: 700;
-      margin-bottom: 0.75rem;
+      margin-bottom: 1rem;
+      color: #fff;
     }
 
     .card-description {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      line-height: 1.5;
-      margin-bottom: 2rem;
+      font-size: 0.95rem;
+      color: #64748b;
+      line-height: 1.6;
+      margin-bottom: 2.5rem;
       flex-grow: 1;
     }
 
-    .btn {
-      width: 100%;
-      padding: 1rem 1.5rem;
-      border-radius: 12px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: all 0.2s ease;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      cursor: pointer;
+    /* Detailed Information A to Z */
+    .details-section {
+      margin-bottom: 8rem;
     }
 
-    .btn-primary {
-      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-      color: #0f172a;
-      box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3);
-      border: none;
+    .info-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
     }
 
-    .btn-primary:hover {
-      box-shadow: 0 6px 20px rgba(0, 242, 254, 0.5);
-      transform: scale(1.01);
+    .info-item {
+      background: rgba(255, 255, 255, 0.01);
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      border-radius: 20px;
+      padding: 2rem;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .btn-secondary {
-      background: rgba(255, 255, 255, 0.05);
+    .info-item:hover {
+      border-color: rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.02);
+      transform: translateY(-2px);
+    }
+
+    .info-badge {
+      font-size: 0.7rem;
+      font-weight: 800;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+
+    .info-title {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 1.25rem;
+      margin-bottom: 0.75rem;
       color: white;
-      border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: var(--primary);
+    .info-desc {
+      font-size: 0.9rem;
+      color: #64748b;
+      line-height: 1.5;
+    }
+
+    /* FAQ Section */
+    .faq-section {
+      max-width: 800px;
+      margin: 0 auto 8rem auto;
+    }
+
+    .faq-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .faq-item {
+      background: rgba(255, 255, 255, 0.01);
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .faq-item:hover {
+      border-color: rgba(255, 255, 255, 0.08);
+    }
+
+    .faq-trigger {
+      width: 100%;
+      padding: 1.5rem;
+      background: none;
+      border: none;
+      color: white;
+      text-align: left;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.3s ease;
+    }
+
+    .faq-trigger svg {
+      transition: transform 0.3s ease;
+      color: var(--text-muted);
+    }
+
+    .faq-item.active .faq-trigger svg {
+      transform: rotate(45deg);
+      color: var(--primary);
+    }
+
+    .faq-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .faq-content p {
+      padding: 0 1.5rem 1.5rem 1.5rem;
+      font-size: 0.95rem;
+      color: #64748b;
+      line-height: 1.6;
     }
 
     /* Footer */
     footer {
       text-align: center;
-      padding-top: 3rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
-      color: var(--text-muted);
+      padding: 4rem 1.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.03);
+      color: #475569;
       font-size: 0.85rem;
     }
 
@@ -395,61 +616,74 @@
         padding: 1rem;
       }
       header {
-        margin-bottom: 2.5rem;
+        margin-bottom: 3rem;
         flex-direction: column;
-        gap: 1rem;
+        gap: 1.25rem;
         text-align: center;
       }
       h1 {
-        font-size: 2.2rem;
+        font-size: 2.8rem;
       }
       .subtitle {
-        font-size: 0.95rem;
-        margin-bottom: 1.75rem;
+        font-size: 1.05rem;
+        margin-bottom: 2rem;
+      }
+      .btn-group {
+        flex-direction: column;
+        width: 100%;
+      }
+      .btn {
+        width: 100%;
       }
       .hero {
-        margin-bottom: 3rem;
+        margin-bottom: 4rem;
       }
       .showcase {
-        margin-bottom: 3.5rem;
+        margin-bottom: 4.5rem;
         padding: 0.5rem;
-        border-radius: 16px;
+        border-radius: 20px;
       }
       .carousel-container {
         margin-top: 0.5rem;
       }
       .carousel-btn {
-        width: 36px;
-        height: 36px;
+        width: 40px;
+        height: 40px;
       }
-      .carousel-btn.prev { left: 8px; }
-      .carousel-btn.next { right: 8px; }
+      .carousel-btn.prev { left: 10px; }
+      .carousel-btn.next { right: 10px; }
+      .section-title h2 {
+        font-size: 2.2rem;
+      }
       .download-grid {
         grid-template-columns: 1fr;
-        gap: 1.25rem;
-        margin-bottom: 4rem;
+        gap: 1.5rem;
+        margin-bottom: 5rem;
       }
       .card {
-        padding: 1.75rem 1.25rem;
-        border-radius: 18px;
+        padding: 2.25rem 1.5rem;
+        border-radius: 22px;
       }
       .icon-container {
-        width: 64px;
-        height: 64px;
-        border-radius: 16px;
-        margin-bottom: 1rem;
+        width: 72px;
+        height: 72px;
+        border-radius: 20px;
+        margin-bottom: 1.5rem;
       }
       .card-title {
-        font-size: 1.3rem;
+        font-size: 1.4rem;
       }
       .card-description {
-        font-size: 0.85rem;
-        margin-bottom: 1.5rem;
+        font-size: 0.9rem;
+        margin-bottom: 2rem;
       }
     }
 
     @media (max-width: 480px) {
       h1 {
+        font-size: 2.2rem;
+      }
+      .section-title h2 {
         font-size: 1.85rem;
       }
     }
@@ -463,25 +697,34 @@
   <div class="container">
     
     <!-- Top Bar -->
-    <header>
+    <header class="animate-fade-in">
       <div class="brand">
         <img src="client/public/logo.png" onerror="this.src='https://raw.githubusercontent.com/Vaggiri/Giri-OS/main/client/public/logo.png'" alt="GisunOS">
         <span>GisunOS</span>
       </div>
-      <a href="https://gisun.vercel.app" class="btn btn-secondary" style="width: auto; padding: 0.5rem 1.2rem; font-size: 0.85rem;" target="_blank">Launch Web App</a>
+      <a href="https://gisun.vercel.app" class="btn btn-secondary" style="width: auto; padding: 0.6rem 1.5rem; font-size: 0.85rem; border-radius: 10px;" target="_blank">Launch Web App</a>
     </header>
 
     <!-- Hero Header -->
-    <section class="hero">
-      <div class="badge">Desktop Native Migration</div>
-      <h1>Workstation Experience, Unlocked</h1>
+    <section class="hero animate-slide-up">
+      <div class="badge">Desktop Native Integration</div>
+      <h1>Workstation Experience,<br>Reinvented Natively.</h1>
       <p class="subtitle">
         GisunOS is a premium operating system simulator. Beautifully styled in high-end glassmorphism, it now syncs natively with your system files and launches in immersive borderless fullscreen mode.
       </p>
+      <div class="btn-group">
+        <a href="#install" class="btn btn-primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Get GisunOS Desktop
+        </a>
+        <a href="https://gisun.vercel.app" class="btn btn-secondary" target="_blank">
+          Try Online Sandbox
+        </a>
+      </div>
     </section>
 
     <!-- Screenshot Slider Showcase -->
-    <section class="showcase">
+    <section class="showcase animate-slide-up-delayed">
       <div class="window-header">
         <div class="dot red"></div>
         <div class="dot yellow"></div>
@@ -531,7 +774,7 @@
     </section>
 
     <!-- Installation Trigger Cards -->
-    <section class="download-grid">
+    <section id="install" class="download-grid">
       
       <!-- Windows Card -->
       <div class="card">
@@ -544,12 +787,12 @@
             <line x1="3" y1="15" x2="21" y2="15"/>
           </svg>
         </div>
-        <h3 class="card-title">Windows</h3>
+        <h3 class="card-title">Windows Edition</h3>
         <p class="card-description">
           Install the native `.exe` desktop application. Features auto-hiding macOS status bar, zero system borders, and local directory syncing.
         </p>
         <a href="https://github.com/Vaggiri/Gisun/releases/latest" class="btn btn-primary" target="_blank">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           Get Windows App
         </a>
       </div>
@@ -565,12 +808,12 @@
             <path d="M8 21h8"/>
           </svg>
         </div>
-        <h3 class="card-title">Android</h3>
+        <h3 class="card-title">Android APK</h3>
         <p class="card-description">
           Install the mobile orientation-enforced APK build to run GisunOS smoothly in landscape mode directly on your mobile device.
         </p>
         <a href="Releases/GisunOS-v1.0.2.apk" class="btn btn-primary" download>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           Download APK
         </a>
       </div>
@@ -583,16 +826,104 @@
             <polygon points="10 8 16 12 10 16 10 8"/>
           </svg>
         </div>
-        <h3 class="card-title">Browser Trial</h3>
+        <h3 class="card-title">Browser Sandbox</h3>
         <p class="card-description">
           Test drive GisunOS inside your web browser. Try out the desktop apps, virtual file system, and custom utilities instantly.
         </p>
         <a href="https://gisun.vercel.app" class="btn btn-secondary" target="_blank">
-          <span>Open Online</span>
+          <span>Launch Online</span>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
         </a>
       </div>
 
+    </section>
+
+    <!-- Technical Details A to Z Section -->
+    <section class="details-section">
+      <div class="section-title">
+        <h2>Features & Specs A to Z</h2>
+        <p>A full breakdown of what makes GisunOS a high-performance workspace simulator.</p>
+      </div>
+
+      <div class="info-list">
+        
+        <div class="info-item">
+          <span class="info-badge">A to F</span>
+          <h4 class="info-title">Activity & Files</h4>
+          <p class="info-desc">Includes an advanced Activity Monitor showing processor and memory metrics in real-time, coupled with a virtual & local file system manager.</p>
+        </div>
+
+        <div class="info-item">
+          <span class="info-badge">G to L</span>
+          <h4 class="info-title">GisunBridge Server</h4>
+          <p class="info-desc">An Express-based proxy backend enabling CORS-bypassing content delivery, ad-free media streaming, and direct host shell communications.</p>
+        </div>
+
+        <div class="info-item">
+          <span class="info-badge">M to R</span>
+          <h4 class="info-title">Mac-Style Interface</h4>
+          <p class="info-desc">Enjoy full-screen immersion without system titlebars. The top status bar slides down only when your mouse hovers near the screen ceiling.</p>
+        </div>
+
+        <div class="info-item">
+          <span class="info-badge">S to Z</span>
+          <h4 class="info-title">System Snapping</h4>
+          <p class="info-desc">Features window-dragging physics and smart maximization boundaries that dynamically respect current panel states.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+      <div class="section-title">
+        <h2>Frequently Asked Questions</h2>
+        <p>Answers to common installation and architectural inquiries.</p>
+      </div>
+
+      <div class="faq-container">
+        
+        <div class="faq-item">
+          <button class="faq-trigger">
+            <span>What are the system requirements for Windows?</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-content">
+            <p>GisunOS is packaged as a standalone portable app. It runs on Windows 10 and 11 (64-bit). No installation or registry changes are needed—just double-click the `.exe` to launch.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-trigger">
+            <span>How does the Local PC File Sync work?</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-content">
+            <p>When running the desktop application, a background server securely connects on port 5000. Clicking "Local PC" calls our backend to read directory lists in your home directory. Double-clicking a file sends a shell signal to open it natively via your PC's default system program.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-trigger">
+            <span>Is my data sent to the cloud?</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-content">
+            <p>No. Your local files are read and opened strictly on your local machine. If you configure persistent user logins, only core settings and wallpapers are saved to your private Supabase cloud database instance.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-trigger">
+            <span>Can I customize the applications?</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-content">
+            <p>Yes! GisunOS features a plug-and-play app architecture. The project's README details a simple 3-step guide to writing your own React components, adding them to the window registry, and compiling them into your custom desktop builds.</p>
+          </div>
+        </div>
+
+      </div>
     </section>
 
     <!-- Footer -->
@@ -602,8 +933,9 @@
 
   </div>
 
-  <!-- Slider Carousel Logic -->
+  <!-- Slider Carousel & Accordion Logic -->
   <script>
+    // Carousel Slide Code
     let currentIdx = 0;
     const slides = document.querySelectorAll('.carousel-slide');
     const dots = document.querySelectorAll('.dot-indicator');
@@ -635,10 +967,33 @@
       updateCarousel();
     }
 
-    // Auto-advance slides every 5 seconds
+    // Auto-advance slides every 6 seconds
     setInterval(() => {
       changeSlide(1);
-    }, 5000);
+    }, 6000);
+
+    // Accordion Logic
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+      const trigger = item.querySelector('.faq-trigger');
+      const content = item.querySelector('.faq-content');
+      
+      trigger.addEventListener('click', () => {
+        const isActive = item.classList.contains('active');
+        
+        // Collapse all other items
+        faqItems.forEach(el => {
+          el.classList.remove('active');
+          el.querySelector('.faq-content').style.maxHeight = null;
+        });
+
+        // Open clicked item if it was closed
+        if (!isActive) {
+          item.classList.add('active');
+          content.style.maxHeight = content.scrollHeight + "px";
+        }
+      });
+    });
   </script>
 
 </body>
