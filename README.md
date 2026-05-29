@@ -91,6 +91,57 @@ GisunOS is pre-configured for **Vercel** out of the box:
 
 ---
 
+## 🧩 How to Build Your Own App for Giri OS
+
+Giri OS is designed with a plug-and-play app architecture. You can easily build and add your own custom React apps (like drawing tools, retro games, or dashboard widgets).
+
+Follow these **3 simple steps** to build and register your app:
+
+### Step 1: Create your React Component
+Create a new file in `client/src/apps/MyAwesomeApp.jsx`:
+```jsx
+import React from 'react';
+
+const MyAwesomeApp = () => {
+  return (
+    <div className="flex h-full w-full flex-col items-center justify-center bg-slate-900 text-white p-4">
+      <h2 className="text-xl font-bold">Hello World! 🚀</h2>
+      <p className="text-xs opacity-60 mt-2">Welcome to my custom app.</p>
+    </div>
+  );
+};
+
+export default MyAwesomeApp;
+```
+
+### Step 2: Register in the Window Manager
+Open `client/src/components/os/WindowFrame.jsx`:
+1. Import your component at the top:
+   ```javascript
+   import MyAwesomeApp from '../../apps/MyAwesomeApp';
+   ```
+2. Add your app identifier (e.g., `'my-awesome-app'`) to the window-rendering switch block:
+   ```javascript
+   case 'my-awesome-app': return <MyAwesomeApp />;
+   ```
+
+### Step 3: Add to Desktop, Dock, or Spotlight Search
+To make it launchable, add it to any (or all) of the launch configurations:
+* **Desktop Shortcut (`client/src/components/os/Desktop.jsx`):**
+  ```javascript
+  { id: 'my-awesome-app', name: 'My App', title: 'My App', icon: <Smile className="text-pink-400" size={32} /> }
+  ```
+* **Dock (`client/src/components/os/Dock.jsx`):**
+  ```javascript
+  { id: 'my-awesome-app', name: 'My App', title: 'My App', icon: <Smile className="text-pink-400" /> }
+  ```
+* **Spotlight (`client/src/components/os/Spotlight.jsx`):**
+  ```javascript
+  { id: 'my-awesome-app', name: 'My App', title: 'My App', icon: <Smile className="text-pink-400" size={20} /> }
+  ```
+
+---
+
 ## 🤝 Contributing
 
 We welcome professional contributions! Please refer to [CONTRIBUTING.md](CONTRIBUTING.md) for our architectural standards and coding guidelines.
