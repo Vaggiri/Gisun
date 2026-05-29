@@ -838,10 +838,10 @@
 
     </section>
 
-    <!-- Technical Details A to Z Section -->
+    <!-- Technical Details Section -->
     <section class="details-section">
       <div class="section-title">
-        <h2>Architecture & Specs A to Z</h2>
+        <h2>Architecture & Design</h2>
         <p>A comprehensive overview of the GisunOS monorepo, tech stack, security boundaries, and licensing.</p>
       </div>
 
@@ -850,25 +850,25 @@
         <div class="info-item">
           <span class="info-badge">Stack Used</span>
           <h4 class="info-title">Unified Frontend & State</h4>
-          <p class="info-desc">Built with **React 18** and **Vite** for lightning-fast HMR. Style compilation is managed with **Tailwind CSS** and custom CSS modules. Dynamic spring physics and system animations are powered by GPU-accelerated **Framer Motion**, with lightweight state management handled via **Zustand**.</p>
+          <p class="info-desc">Built with <strong>React 18</strong> and <strong>Vite</strong> for lightning-fast HMR. Style compilation is managed with <strong>Tailwind CSS</strong> and custom CSS modules. Dynamic spring physics and system animations are powered by GPU-accelerated <strong>Framer Motion</strong>, with lightweight state management handled via <strong>Zustand</strong>.</p>
         </div>
 
         <div class="info-item">
           <span class="info-badge">Core Bridge</span>
           <h4 class="info-title">Electron Shell & Express</h4>
-          <p class="info-desc">In desktop mode, a secure local **Express** server acts as the OS bridge, running on loopback port 5000. It queries native files using Node's `fs` and launches default system viewers via `child_process.exec` when you click on local directories.</p>
+          <p class="info-desc">In desktop mode, a secure local <strong>Express</strong> server acts as the OS bridge, running on loopback port 5000. It queries native files using Node's <code>fs</code> and launches default system viewers via <code>child_process.exec</code> when you click on local directories.</p>
         </div>
 
         <div class="info-item">
           <span class="info-badge">Deployment</span>
           <h4 class="info-title">Vercel & Web Fallback</h4>
-          <p class="info-desc">The application automatically detects browser execution using `process.versions.electron`. When hosted on Vercel as a standard web app, native file features gracefully fall back to a mock Virtual File System (VFS), preventing cross-origin blockages.</p>
+          <p class="info-desc">The application automatically detects browser execution using <code>process.versions.electron</code>. When hosted on Vercel as a standard web app, native file features gracefully fall back to a mock Virtual File System (VFS), preventing cross-origin blockages.</p>
         </div>
 
         <div class="info-item">
           <span class="info-badge">License & Legal</span>
           <h4 class="info-title">GNU GPL v3 copyleft</h4>
-          <p class="info-desc">GisunOS is fully open-source under the **GNU General Public License v3.0**. All derivatives must preserve original author credits to **Vaggiri** and remain completely open-source. Visual media and API integrations are protected under non-commercial fair-use clauses.</p>
+          <p class="info-desc">GisunOS is fully open-source under the <strong>GNU General Public License v3.0</strong>. All derivatives must preserve original author credits to <strong>Vaggiri</strong> and remain completely open-source. Visual media and API integrations are protected under non-commercial fair-use clauses.</p>
         </div>
 
       </div>
