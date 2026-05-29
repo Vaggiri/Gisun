@@ -84,7 +84,7 @@ GisunOS is pre-configured for **Vercel** out of the box:
 
 ## 📸 Screenshots
 
-*(Capture your beautiful screenshots here to wow your contributors!)*
+*loading....*
 - **Desktop View**: Highlighting the Dock and Menu Bar.
 - **Mobile Mode**: Showing the Compact UI and Orientation Guardian.
 - **GisunTube**: Demonstrating ad-free video playback through the proxy.
