@@ -391,14 +391,66 @@
 
     /* Responsive scaling */
     @media (max-width: 768px) {
-      h1 {
-        font-size: 2.5rem;
-      }
-      .subtitle {
-        font-size: 1rem;
+      .container {
+        padding: 1rem;
       }
       header {
-        margin-bottom: 2rem;
+        margin-bottom: 2.5rem;
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+      }
+      h1 {
+        font-size: 2.2rem;
+      }
+      .subtitle {
+        font-size: 0.95rem;
+        margin-bottom: 1.75rem;
+      }
+      .hero {
+        margin-bottom: 3rem;
+      }
+      .showcase {
+        margin-bottom: 3.5rem;
+        padding: 0.5rem;
+        border-radius: 16px;
+      }
+      .carousel-container {
+        margin-top: 0.5rem;
+      }
+      .carousel-btn {
+        width: 36px;
+        height: 36px;
+      }
+      .carousel-btn.prev { left: 8px; }
+      .carousel-btn.next { right: 8px; }
+      .download-grid {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+        margin-bottom: 4rem;
+      }
+      .card {
+        padding: 1.75rem 1.25rem;
+        border-radius: 18px;
+      }
+      .icon-container {
+        width: 64px;
+        height: 64px;
+        border-radius: 16px;
+        margin-bottom: 1rem;
+      }
+      .card-title {
+        font-size: 1.3rem;
+      }
+      .card-description {
+        font-size: 0.85rem;
+        margin-bottom: 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.85rem;
       }
     }
   </style>
