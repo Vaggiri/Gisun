@@ -243,6 +243,65 @@ app.get('/api/youtube/search', async (req, res) => {
   }
 });
 
+// Local Filesystem Listing Endpoint
+app.get('/api/local/list', async (req, res) => {
+  const fs = require('fs');
+  const os = require('os');
+  let targetPath = req.query.path || os.homedir();
+
+  try {
+    const stats = await fs.promises.stat(targetPath);
+    if (!stats.isDirectory()) {
+      return res.status(400).json({ error: 'Not a directory' });
+    }
+
+    const files = await fs.promises.readdir(targetPath, { withFileTypes: true });
+    const items = files.map(file => {
+      const isDir = file.isDirectory();
+      return {
+        id: `local-${path.join(targetPath, file.name)}`,
+        name: file.name,
+        path: path.join(targetPath, file.name),
+        type: isDir ? 'folder' : 'file',
+        isLocal: true
+      };
+    });
+
+    res.json({
+      currentPath: targetPath,
+      parentPath: path.dirname(targetPath) !== targetPath ? path.dirname(targetPath) : null,
+      items: items
+    });
+  } catch (error) {
+    console.error('[Local FS List Error]', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Local File Open Endpoint (using default OS handler)
+app.get('/api/local/open', (req, res) => {
+  const filePath = req.query.path;
+  if (!filePath) return res.status(400).json({ error: 'Path required' });
+
+  const { exec } = require('child_process');
+  let command = '';
+  if (process.platform === 'win32') {
+    command = `start "" "${filePath}"`;
+  } else if (process.platform === 'darwin') {
+    command = `open "${filePath}"`;
+  } else {
+    command = `xdg-open "${filePath}"`;
+  }
+
+  exec(command, (err) => {
+    if (err) {
+      console.error('[Local Open Error]', err);
+      return res.status(500).json({ error: err.message });
+    }
+    res.json({ success: true });
+  });
+});
+
 // Serve the React app for all other routes (client-side routing)
 app.get(/.*/, (req, res) => {
   res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));

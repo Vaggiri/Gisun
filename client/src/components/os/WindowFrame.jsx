@@ -88,7 +88,7 @@ const WindowFrame = ({ id }) => {
   };
 
   const isMax = window.isMaximized;
-  const maximizedHeight = dockAutoHide ? 'calc(100vh - 44px)' : 'calc(100vh - 140px)';
+  const maximizedHeight = dockAutoHide ? '100vh' : 'calc(100vh - 96px)';
 
   return (
     <motion.div
@@ -105,7 +105,7 @@ const WindowFrame = ({ id }) => {
         y: 0,
         width: isMax ? '100vw' : window.w,
         height: isMax ? maximizedHeight : window.h,
-        top: isMax ? 'var(--menubar-h)' : window.y,
+        top: isMax ? 0 : window.y,
         left: isMax ? 0 : window.x,
         borderRadius: isMax ? 0 : 12,
       }}

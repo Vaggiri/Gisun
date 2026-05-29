@@ -113,14 +113,21 @@ const useFileSystemStore = create((set, get) => ({
 
   getNode: (id) => {
     if (id === 'cloud-drive') return { id: 'cloud-drive', name: 'Cloud Drive', type: 'folder', parent_id: 'user' };
+    if (id === 'local-pc') return { id: 'local-pc', name: 'Local PC', type: 'folder', parent_id: 'user' };
+    if (id && (id.includes(':\\') || id.startsWith('/') || id.startsWith('\\\\'))) {
+      return { id, name: id.split(/[\\/]/).pop() || id, type: 'folder' };
+    }
     return get().fileTree.find(n => n.id === id);
   },
 
   getChildren: (parentId) => {
     const localChildren = get().fileTree.filter(n => n.parent_id === parentId);
     if (parentId === 'user') {
-      // Inject Cloud Drive into the root
-      return [...localChildren, { id: 'cloud-drive', name: 'Cloud Drive', type: 'folder', parent_id: 'user' }];
+      const items = [...localChildren, { id: 'cloud-drive', name: 'Cloud Drive', type: 'folder', parent_id: 'user' }];
+      if (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
+        items.push({ id: 'local-pc', name: 'Local PC', type: 'folder', parent_id: 'user', isLocalRoot: true });
+      }
+      return items;
     }
     return localChildren;
   },

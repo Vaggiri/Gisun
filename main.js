@@ -8,8 +8,8 @@ let mainWindow;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    width: 1280,
-    height: 800,
+    fullscreen: true,
+    frame: false,
     title: 'GisunOS',
     icon: path.join(__dirname, 'client', 'dist', 'logo.png'),
     webPreferences: {

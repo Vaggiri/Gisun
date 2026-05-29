@@ -2,15 +2,19 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Wifi, Battery, Search, List, LogOut, Power, RefreshCcw } from 'lucide-react';
 import ControlCenter from './ControlCenter';
 import useSystemStore from '../../store/useSystemStore';
+import useWindowStore from '../../store/useWindowStore';
 import { supabase } from '../../supabase';
 
 const MenuBar = () => {
   const [time, setTime] = useState(new Date());
   const [showControlCenter, setShowControlCenter] = useState(false);
   const [showAppleMenu, setShowAppleMenu] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const appleMenuRef = useRef(null);
   
   const { setBootStage, logout } = useSystemStore();
+  const windows = useWindowStore(state => state.windows);
+  const hasOpenApps = windows.some(w => !w.isMinimized);
 
   useEffect(() => {
     const timer = setInterval(() => setTime(new Date()), 1000);
@@ -42,11 +46,25 @@ const MenuBar = () => {
     setTimeout(() => window.location.reload(), 2000);
   };
 
+  const shouldShow = !hasOpenApps || isHovered || showAppleMenu || showControlCenter;
+
   return (
     <>
+      {hasOpenApps && (
+        <div 
+          className="fixed top-0 left-0 right-0 h-[6px] z-[999] pointer-events-auto"
+          onMouseEnter={() => setIsHovered(true)}
+        />
+      )}
       <div 
-        style={{ height: 'var(--menubar-h)' }}
-        className="fixed top-0 left-0 right-0 z-[1000] flex items-center justify-between px-6 text-[10px] md:text-sm font-semibold text-white transition-all duration-500 shadow-lg bg-black/5 backdrop-blur-md border-b border-white/5"
+        style={{ 
+          height: 'var(--menubar-h)',
+          transform: shouldShow ? 'translateY(0)' : 'translateY(-100%)',
+          transition: 'transform 0.25s cubic-bezier(0.16, 1, 0.3, 1)'
+        }}
+        className="fixed top-0 left-0 right-0 z-[1000] flex items-center justify-between px-6 text-[10px] md:text-sm font-semibold text-white shadow-lg bg-black/5 backdrop-blur-md border-b border-white/5"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
       >
         {/* Left Side */}
         <div className="flex items-center gap-4 relative">
